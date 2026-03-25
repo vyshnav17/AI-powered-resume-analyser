@@ -1,109 +1,161 @@
-🧠 Automated Resume Grader
-Anveshan Hackathon Project
+# 🧠 Automated Resume Grader
 
-A smart, web-based AI-powered Resume Grader that evaluates resumes instantly and provides actionable feedback. Users upload a PDF resume, and the system analyzes it for:
+### _Anveshan Hackathon Project_
 
-Contact Information
+---
 
-Education
+## 💡 Overview
 
-Skills
+The **Automated Resume Grader** is a smart, web-based tool designed to analyze PDF resumes and instantly provide a comprehensive score (out of **100**) along with **actionable feedback** for improvement.
 
-Experience
+The system evaluates resumes based on critical criteria to maximize readability and Applicant Tracking System (ATS) compatibility:
 
-Formatting Quality
+* **Contact Information**
+* **Education**
+* **Skills**
+* **Work Experience**
+* **Formatting & Structure**
+* **ATS Optimization**
+* **Keywords & Content Quality**
 
-ATS Compatibility
+It suggests specific improvements, such as fixing section headers, improving formatting, adding bullet points, or enhancing skills and experience descriptions.
 
-Keywords & Structure
+---
 
-It assigns a score out of 100 and highlights areas of improvement, such as missing sections, unclear formatting, or low keyword relevance. The tool also suggests enhancements like adding bullet points, improving section headers, and refining skill lists.
+## 🚀 Features
 
-🚀 Features
+* **Upload and Analyze** PDF resumes.
+* **Automated PDF text extraction** using `pdfplumber`.
+* **Comprehensive Scoring System** based on industry-standard resume structure.
+* **Detailed Feedback** for **ATS compatibility**.
+* **Clean and simple user interface** for a great user experience.
+* **Fast backend processing** using **Flask**.
+* **Versatile**—works effectively for both students and experienced professionals.
 
-Upload PDF resumes
+---
 
-Automated extraction using pdfplumber
+## 🏗️ Project Architecture
 
-Scoring based on structure, skills, formatting, and content
+The system utilizes a multi-component architecture to handle file upload, data extraction, scoring, and response generation. 
 
-Detailed improvement suggestions
+### High-Level System Flow (ASCII Diagram)
 
-Fast and simple UI built for non-technical users
+```lua
++-----------------------+
+|        Frontend       |
+|  (HTML, CSS, JS, Vite)|
++----------+------------+
+           |
+           | Upload PDF
+           v
++----------+------------+
+|     Backend API      |
+|        (Flask)       |
++----------+------------+
+           |
++-----------------+------------------+
+|                 |                  |
+v                 v
++---------------------------+ +--------------------------+
+|      PDF Processing       | |  Resume Scoring Engine   |
+| (pdfplumber extraction)   | | (Rules + Checks + Score) |
++-------------+-------------+ +-------------+------------+
+|             |
+v             v
++-------+------------------+ +------------+-------------+
+| Extracted Resume Content | | Feedback & Suggestions |
++------------+-------------+ +------------+-------------+
+             |
++--------------------+--------------------+
+                      |
+                      v
++--------------+--------------+
+| Final Response |
+| JSON + Score + Feedback |
++------------------------------+
+```
+Mermaid Architecture Diagram (GitHub Renderable)Code snippetflowchart TD
+```lua
+A[User Uploads PDF] --> B[Frontend <br>HTML/CSS/JS/Vite]
+B --> C[Flask Backend API]
 
-End-to-end system powered by Python, Flask, and Node.js
+C --> D[PDF Extraction <br> pdfplumber]
+C --> E[Scoring Engine <br> Resume Rules & Checks]
 
-🛠️ Tech Stack
-Component	Technology
-Backend	Python, Flask
-PDF Parsing	pdfplumber
-Frontend	Node.js, HTML/CSS/JS
-Build Tools	npm, Vite
-Deployment	Replit
-📦 Installation & Setup (Local Machine)
-Prerequisites
+D --> F[Extracted Resume Content]
+E --> G[Score + Improvement Feedback]
 
-Ensure you have the following installed:
+F --> H[Final Response JSON]
+G --> H
 
-Node.js (v18 or above)
+H --> I[Display Results to User]
+```
+## 🛠️ Tech Stack
 
-npm (comes with Node.js)
+| Component | Technology |
+| :--- | :--- |
+| **Backend** | Python, **Flask** |
+| **PDF Parsing** | **pdfplumber** |
+| **Frontend** | Node.js, HTML, CSS, JavaScript, **Vite** |
+| **Deployment** | Replit |
+| **Build Tools** | npm |
 
-Steps to Run Locally
+---
 
-Download / Clone the project
+## 📦 Installation & Setup (Local Machine)
 
-git clone https://github.com/MayankSahu297/Anveshan-Hackathon
+### Prerequisites
 
-cd Anveshan-Hackathon
+Make sure you have the following installed on your system:
 
+* **Node.js** (v18 or above)
+* **npm** (Node Package Manager)
+* **Python**
 
-Install dependencies
+### Steps to Run Locally
 
-npm install
+1.  **Clone the Repository**
+    ```bash
+    git clone [https://github.com/MayankSahu297/Anveshan-Hackathon](https://github.com/MayankSahu297/Anveshan-Hackathon)
+    cd Anveshan-Hackathon
+    ```
 
+2.  **Install Dependencies**
+    ```bash
+    npm install
+    ```
 
-Start the development server
+3.  **Start the Development Server**
+    ```bash
+    npm run dev
+    ```
 
-npm run dev
+4.  **Open in Browser**
+    The application will be accessible at:
+    ```arduino
+    http://localhost:5000
+    ```
 
+### 📘 Commands Explained
 
-Open your browser and visit:
+| Command | Description |
+| :--- | :--- |
+| `npm install` | Installs all project dependencies for both frontend and backend. |
+| `npm run dev` | Runs the backend (Flask) and starts the frontend development server. |
+| `npm run build` | Builds the production-ready frontend bundle. |
+| `npm start` | Runs the production version of the application. |
 
-http://localhost:5000
+### ⚠️ Port Configuration
 
-📘 What the Commands Do
+* **Default port:** `5000`
+* To change the port, edit the configuration file: `server/index.ts` (specifically around line 62).
 
-npm install
-Installs all project dependencies.
+---
 
-npm run dev
-Starts both the backend Flask server and the frontend development server together.
+## 🔗 Demo & Links
 
-⚠️ If You Get Port Conflicts
-
-This project uses port 5000. If something else is on that port:
-
-Stop the application using port 5000, or
-
-Change the port in:
-
-server/index.ts (line 62)
-
-🚢 Production Build
-
-To build for production:
-
-npm run build
-
-
-To start the production server:
-
-npm start
-
-
-
-🌐 Live Deployment
-
-🔗 Live Demo:
-https://94d88c9d-fbeb-41b5-9f38-dec071da3432-00-2qgqkztwnsk0o.spock.replit.dev/
+| Type | Link |
+| :--- | :--- |
+| **🎥 Project Demo Video** | [https://youtu.be/UHMXX-FEbL0?si=xDkefIpPugb-mndX](https://youtu.be/UHMXX-FEbL0?si=xDkefIpPugb-mndX) |
+| **🌐 Live Deployment** | [https://94d88c9d-fbeb-41b5-9f38-dec071da3432-00-2qgqkztwnsk0o.spock.replit.dev/](https://94d88c9d-fbeb-41b5-9f38-dec071da3432-00-2qgqkztwnsk0o.spock.replit.dev/) |
+| **📁 GitHub Repository** | [https://github.com/MayankSahu297/Anveshan-Hackathon](https://github.com/MayankSahu297/Anveshan-Hackathon) |
