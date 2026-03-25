@@ -42,6 +42,10 @@ Stop other applications using port 5000, or
 Modify the port in server/index.ts (line 62)
 For production deployment:
 npm run build
+
+
+
+project presentation video link https://youtu.be/UHMXX-FEbL0?si=xDkefIpPugb-mndX
 npm start
 The project includes a resume analysis tool that lets you upload PDF files and get detailed feedback on formatting, content, keywords, and ATS compatibility.
 
