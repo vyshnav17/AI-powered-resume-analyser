@@ -157,5 +157,5 @@ Make sure you have the following installed on your system:
 | Type | Link |
 | :--- | :--- |
 | **🎥 Project Demo Video** | [https://youtu.be/UHMXX-FEbL0?si=xDkefIpPugb-mndX](https://youtu.be/UHMXX-FEbL0?si=xDkefIpPugb-mndX) |
-| **🌐 Live Deployment** | [https://94d88c9d-fbeb-41b5-9f38-dec071da3432-00-2qgqkztwnsk0o.spock.replit.dev/](https://94d88c9d-fbeb-41b5-9f38-dec071da3432-00-2qgqkztwnsk0o.spock.replit.dev/) |
+| **🌐 Live Deployment** | [https://anveshan-hackathon.onrender.com/] |
 | **📁 GitHub Repository** | [https://github.com/MayankSahu297/Anveshan-Hackathon](https://github.com/MayankSahu297/Anveshan-Hackathon) |
