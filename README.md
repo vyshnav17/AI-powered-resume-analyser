@@ -1,54 +1,109 @@
-# Anveshan-Hackathon
-AUTOMATED RESUME GRADER
+🧠 Automated Resume Grader
+Anveshan Hackathon Project
 
+A smart, web-based AI-powered Resume Grader that evaluates resumes instantly and provides actionable feedback. Users upload a PDF resume, and the system analyzes it for:
 
-The Automated Resume Grader is a web-based tool that helps job-seekers instantly evaluate their resumes. Users can upload a PDF resume, and the system analyzes it for key elements like contact information, education, skills, experience, and formatting. Based on these checks, it generates a score out of 100, along with actionable feedback on how to improve.
-For example, if the resume is missing a skills section or uses poor formatting, the grader highlights that and suggests improvements — such as adding bullet points, listing relevant technologies, or making section titles clearer.
+Contact Information
 
+Education
 
-I built this project using Python and Flask, with pdfplumber for PDF.  The interface is simple, ensuring anyone can use it without technical knowledge.
+Skills
 
+Experience
 
+Formatting Quality
 
+ATS Compatibility
 
+Keywords & Structure
 
-To run this project on your local device, follow these steps:
+It assigns a score out of 100 and highlights areas of improvement, such as missing sections, unclear formatting, or low keyword relevance. The tool also suggests enhancements like adding bullet points, improving section headers, and refining skill lists.
 
+🚀 Features
+
+Upload PDF resumes
+
+Automated extraction using pdfplumber
+
+Scoring based on structure, skills, formatting, and content
+
+Detailed improvement suggestions
+
+Fast and simple UI built for non-technical users
+
+End-to-end system powered by Python, Flask, and Node.js
+
+🛠️ Tech Stack
+Component	Technology
+Backend	Python, Flask
+PDF Parsing	pdfplumber
+Frontend	Node.js, HTML/CSS/JS
+Build Tools	npm, Vite
+Deployment	Replit
+📦 Installation & Setup (Local Machine)
 Prerequisites
-Make sure you have these installed:
 
-Node.js (version 18 or higher)
+Ensure you have the following installed:
+
+Node.js (v18 or above)
+
 npm (comes with Node.js)
-Setup Steps
-Download the project files to your computer
 
-Open terminal/command prompt and navigate to the project folder
+Steps to Run Locally
 
-Install dependencies:
+Download / Clone the project
+
+git clone https://github.com/MayankSahu297/Anveshan-Hackathon
+
+cd Anveshan-Hackathon
+
+
+Install dependencies
 
 npm install
-Start the development server:
+
+
+Start the development server
 
 npm run dev
-Open your browser and go to http://localhost:5000
 
-What the commands do:
-npm install - Downloads all the required packages
-npm run dev - Starts both the backend server and frontend development server
-If you get port conflicts:
-The app runs on port 5000 by default. If something else is using that port, you can:
 
-Stop other applications using port 5000, or
-Modify the port in server/index.ts (line 62)
-For production deployment:
+Open your browser and visit:
+
+http://localhost:5000
+
+📘 What the Commands Do
+
+npm install
+Installs all project dependencies.
+
+npm run dev
+Starts both the backend Flask server and the frontend development server together.
+
+⚠️ If You Get Port Conflicts
+
+This project uses port 5000. If something else is on that port:
+
+Stop the application using port 5000, or
+
+Change the port in:
+
+server/index.ts (line 62)
+
+🚢 Production Build
+
+To build for production:
+
 npm run build
 
 
+To start the production server:
 
-project presentation video link https://youtu.be/UHMXX-FEbL0?si=xDkefIpPugb-mndX
 npm start
-The project includes a resume analysis tool that lets you upload PDF files and get detailed feedback on formatting, content, keywords, and ATS compatibility.
 
 
 
-deploy link  https://94d88c9d-fbeb-41b5-9f38-dec071da3432-00-2qgqkztwnsk0o.spock.replit.dev/
+🌐 Live Deployment
+
+🔗 Live Demo:
+https://94d88c9d-fbeb-41b5-9f38-dec071da3432-00-2qgqkztwnsk0o.spock.replit.dev/
