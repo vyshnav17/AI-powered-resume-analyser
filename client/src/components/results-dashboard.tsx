@@ -4,12 +4,12 @@ import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { 
-  Download, 
-  Share, 
-  RotateCcw, 
-  FileText, 
-  Check, 
+import {
+  Download,
+  Share,
+  RotateCcw,
+  FileText,
+  Check,
   AlertTriangle,
   TrendingUp,
   Lightbulb,
@@ -40,66 +40,18 @@ export function ResultsDashboard({ analysis, onNewAnalysis }: ResultsDashboardPr
     };
   };
 
-  const generatePDFReport = () => {
-    const reportContent = `
-RESUME ANALYSIS REPORT
-======================
-
-File: ${analysis.fileName}
-Overall Score: ${analysis.overallScore}/100
-Analysis Date: ${new Date(analysis.createdAt).toLocaleDateString()}
-
-DETAILED SCORES
-===============
-Formatting: ${analysis.scores.formatting}%
-Content: ${analysis.scores.content}%
-Keywords: ${analysis.scores.keywords}%
-Experience: ${analysis.scores.experience}%
-
-STRENGTHS
-=========
-${analysis.strengths.map(s => `• ${s.title}: ${s.description}`).join('\n')}
-
-RECOMMENDATIONS
-===============
-${analysis.recommendations.map(r => `• ${r.title}: ${r.description}\n  Example: ${r.example}`).join('\n\n')}
-
-SECTION ANALYSIS
-================
-Contact Info: ${analysis.sectionAnalysis.contactInfo}%
-Summary: ${analysis.sectionAnalysis.summary}%
-Experience: ${analysis.sectionAnalysis.experience}%
-Education: ${analysis.sectionAnalysis.education}%
-Skills: ${analysis.sectionAnalysis.skills}%
-
-ATS COMPATIBILITY
-=================
-${analysis.atsCompatibility.map(a => `${a.status === 'success' ? '✓' : '⚠'} ${a.title}: ${a.description}`).join('\n')}
-    `;
-
-    const blob = new Blob([reportContent], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `resume-analysis-${analysis.fileName.replace('.pdf', '')}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    toast({
-      title: "Report Downloaded",
-      description: "Your resume analysis report has been downloaded as a text file.",
-    });
-  };
-
   const downloadReport = () => {
-    generatePDFReport();
+    window.location.href = `/api/download-analysis-report/${analysis.id}`;
+
+    toast({
+      title: "Generating Report",
+      description: "Your professional PDF analysis report is being generated...",
+    });
   };
 
   const shareResults = async () => {
     const shareText = `I analyzed my resume and scored ${analysis.overallScore}/100! Key strengths: ${analysis.strengths.map(s => s.title).join(', ')}.`;
-    
+
     if (navigator.share) {
       try {
         await navigator.share({
@@ -132,24 +84,13 @@ ${analysis.atsCompatibility.map(a => `${a.status === 'success' ? '✓' : '⚠'} 
 
   const optimizeResumeMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiRequest("POST", `/api/generate-optimized-resume/${analysis.id}`);
-      return response.json();
+      // We'll just trigger the download directly since it's a GET request that returns a file
+      window.location.href = `/api/download-optimized-resume/${analysis.id}`;
     },
-    onSuccess: (data) => {
-      const optimizedResume = data.optimizedResume;
-      const blob = new Blob([optimizedResume], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `optimized-resume-${analysis.fileName.replace('.pdf', '')}.txt`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
+    onSuccess: () => {
       toast({
-        title: "Optimized Resume Generated",
-        description: "Your 100/100 score resume has been downloaded!",
+        title: "Optimized Resume Downloaded",
+        description: "Your professional PDF resume has been generated and downloaded!",
       });
     },
     onError: (error: Error) => {
@@ -174,7 +115,7 @@ ${analysis.atsCompatibility.map(a => `${a.status === 'success' ? '✓' : '⚠'} 
             {/* Score Circle */}
             <div className="flex-shrink-0">
               <div className="relative w-32 h-32">
-                <div 
+                <div
                   className="w-32 h-32 rounded-full flex items-center justify-center"
                   style={getScoreGradient(analysis.overallScore)}
                 >
@@ -193,19 +134,19 @@ ${analysis.atsCompatibility.map(a => `${a.status === 'success' ? '✓' : '⚠'} 
             {/* Score Details */}
             <div className="flex-1 text-center lg:text-left">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                {analysis.overallScore >= 80 ? "Excellent Resume!" : 
-                 analysis.overallScore >= 60 ? "Good Resume Score!" : 
-                 "Room for Improvement"}
+                {analysis.overallScore >= 80 ? "Excellent Resume!" :
+                  analysis.overallScore >= 60 ? "Good Resume Score!" :
+                    "Room for Improvement"}
               </h2>
               <p className="text-gray-600 mb-4">
-                {analysis.overallScore >= 80 
+                {analysis.overallScore >= 80
                   ? "Your resume shows excellent structure and content with strong potential to impress employers."
                   : analysis.overallScore >= 60
-                  ? "Your resume shows strong potential with some areas for improvement. Follow our recommendations below to boost your score."
-                  : "Your resume needs significant improvements. Follow our detailed recommendations to enhance your chances."
+                    ? "Your resume shows strong potential with some areas for improvement. Follow our recommendations below to boost your score."
+                    : "Your resume needs significant improvements. Follow our detailed recommendations to enhance your chances."
                 }
               </p>
-              
+
               {analysis.overallScore < 100 && (
                 <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-4 mb-4">
                   <div className="flex items-center space-x-2 mb-2">
@@ -225,7 +166,7 @@ ${analysis.atsCompatibility.map(a => `${a.status === 'success' ? '✓' : '⚠'} 
                   </Button>
                 </div>
               )}
-              
+
               {/* Quick Stats */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-gray-50 rounded-lg p-3">
@@ -257,14 +198,14 @@ ${analysis.atsCompatibility.map(a => `${a.status === 'success' ? '✓' : '⚠'} 
 
             {/* Action Buttons */}
             <div className="flex flex-col space-y-3">
-              <Button 
+              <Button
                 onClick={downloadReport}
                 className="bg-primary hover:bg-blue-700 text-white"
               >
                 <Download className="w-4 h-4 mr-2" />
                 Download Report
               </Button>
-              <Button 
+              <Button
                 onClick={shareResults}
                 variant="outline"
               >
@@ -287,7 +228,7 @@ ${analysis.atsCompatibility.map(a => `${a.status === 'success' ? '✓' : '⚠'} 
               </div>
               <h3 className="text-xl font-semibold text-gray-900">Strengths</h3>
             </div>
-            
+
             <div className="space-y-4">
               {analysis.strengths.map((strength, index) => (
                 <div key={index} className="flex items-start space-x-3">
@@ -318,7 +259,7 @@ ${analysis.atsCompatibility.map(a => `${a.status === 'success' ? '✓' : '⚠'} 
               </div>
               <h3 className="text-xl font-semibold text-gray-900">Recommendations</h3>
             </div>
-            
+
             <div className="space-y-4">
               {analysis.recommendations.map((rec, index) => (
                 <div key={index} className="border border-orange-200 rounded-lg p-4 bg-orange-50">
@@ -357,11 +298,10 @@ ${analysis.atsCompatibility.map(a => `${a.status === 'success' ? '✓' : '⚠'} 
                   </span>
                   <div className="flex items-center space-x-2">
                     <div className="w-16 bg-gray-200 rounded-full h-2">
-                      <div 
-                        className={`rounded-full h-2 ${
-                          score >= 80 ? 'bg-green-500' : 
+                      <div
+                        className={`rounded-full h-2 ${score >= 80 ? 'bg-green-500' :
                           score >= 60 ? 'bg-yellow-500' : 'bg-red-500'
-                        }`}
+                          }`}
                         style={{ width: `${score}%` }}
                       />
                     </div>
@@ -400,27 +340,27 @@ ${analysis.atsCompatibility.map(a => `${a.status === 'success' ? '✓' : '⚠'} 
 
       {/* Action Buttons */}
       <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-        <Button 
+        <Button
           onClick={onNewAnalysis}
           className="bg-primary hover:bg-blue-700 text-white px-8 py-3"
         >
           <RotateCcw className="w-4 h-4 mr-2" />
           Analyze Another Resume
         </Button>
-        <Button 
-          onClick={generatePDFReport}
-          variant="outline" 
+        <Button
+          onClick={downloadReport}
+          variant="outline"
           className="px-8 py-3"
         >
           <FileText className="w-4 h-4 mr-2" />
           Generate PDF Report
         </Button>
-        <Button 
+        <Button
           onClick={() => toast({
             title: "Resume Builder",
             description: "Resume builder feature coming soon! Use our analysis to improve your current resume.",
           })}
-          variant="outline" 
+          variant="outline"
           className="px-8 py-3"
         >
           <TrendingUp className="w-4 h-4 mr-2" />

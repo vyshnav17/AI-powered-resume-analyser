@@ -16,6 +16,17 @@ export const resumeAnalyses = pgTable("resume_analyses", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull(),
+});
+
+export const insertUserSchema = createInsertSchema(users);
+
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type User = typeof users.$inferSelect;
+
 export const insertResumeAnalysisSchema = createInsertSchema(resumeAnalyses).omit({
   id: true,
   createdAt: true,
@@ -34,14 +45,14 @@ export const sampleResumes = [
   },
   {
     id: 2,
-    title: "Data Scientist", 
+    title: "Data Scientist",
     description: "3 years experience • Analytics",
     icon: "fas fa-chart-line",
   },
   {
     id: 3,
     title: "UX Designer",
-    description: "4 years experience • Design", 
+    description: "4 years experience • Design",
     icon: "fas fa-palette",
   },
 ];

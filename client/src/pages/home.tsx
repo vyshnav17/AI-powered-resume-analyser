@@ -2,10 +2,12 @@ import { useState } from "react";
 import { UploadSection } from "@/components/upload-section";
 import { ResultsDashboard } from "@/components/results-dashboard";
 import { Button } from "@/components/ui/button";
-import { FileText, Plus } from "lucide-react";
+import { FileText, Plus, Loader2 } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 import type { ResumeAnalysis } from "@/lib/types";
 
 export default function Home() {
+  const { logoutMutation } = useAuth();
   const [analysis, setAnalysis] = useState<ResumeAnalysis | null>(null);
 
   const handleAnalysisComplete = (newAnalysis: ResumeAnalysis) => {
@@ -34,13 +36,26 @@ export default function Home() {
                 <p className="text-sm text-gray-600">AI-Powered Resume Analysis</p>
               </div>
             </div>
-            <Button 
-              onClick={handleNewAnalysis}
-              className="bg-primary hover:bg-blue-700 text-white"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              New Analysis
-            </Button>
+            <div className="flex items-center space-x-4">
+              <Button
+                onClick={handleNewAnalysis}
+                variant="outline"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                New Analysis
+              </Button>
+              <Button
+                onClick={() => logoutMutation.mutate()}
+                disabled={logoutMutation.isPending}
+                className="bg-primary hover:bg-blue-700 text-white"
+              >
+                {logoutMutation.isPending ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  "Logout"
+                )}
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -48,8 +63,8 @@ export default function Home() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         {analysis ? (
-          <ResultsDashboard 
-            analysis={analysis} 
+          <ResultsDashboard
+            analysis={analysis}
             onNewAnalysis={handleNewAnalysis}
           />
         ) : (
@@ -102,7 +117,7 @@ export default function Home() {
           </div>
           <div className="border-t border-gray-200 mt-8 pt-8 text-center">
             <p className="text-sm text-gray-600">
-              &copy; 2024 Resume Grader. All rights reserved.
+              &copy; 2026 Resume Grader. All rights reserved.
             </p>
           </div>
         </div>
